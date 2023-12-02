@@ -121,13 +121,13 @@ public class CheapV2rayMain {
                 StringBuilder formatStr = new StringBuilder();
                 if (userRecords.size() == 4) {
                     for (int i = 0; i < USER_INFO.size(); i++) {
-                        formatStr.append(String.format(USER_INFO.get(i), userRecords.get(i)));
+                        formatStr.append(String.format(USER_INFO.get(i), userRecords.get(i) + System.lineSeparator()));
                         log.info(formatStr.toString());
                     }
                 }
                 var text = "sign success";
                 log.info(text);
-                feishuNotifyRobot.send(text + formatStr);
+                feishuNotifyRobot.send(text + System.lineSeparator() + formatStr);
             } catch (Exception e) {
                 log.error(e.getMessage());
             } finally {
