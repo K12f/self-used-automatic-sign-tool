@@ -31,6 +31,6 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          cd ./automatic-sign-tools && \n
-          chmod +x ./mvnw && \n
+          cd ./automatic-sign-tools
+          chmod +x ./mvnw
           ./mvnw --settings settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.Main" -Dexec.args="${CHEAPV2RAY_EMAIL} ${CHEAPV2RAY_PASSWORD}"
