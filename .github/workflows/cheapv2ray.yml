@@ -1,6 +1,6 @@
 # 每天6:30执行
 
-name: Start
+name: CheapV2ray-Sign-Start
 
 on:
   push:
