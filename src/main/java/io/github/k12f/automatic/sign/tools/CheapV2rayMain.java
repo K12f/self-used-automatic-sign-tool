@@ -8,6 +8,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import io.github.k12f.automatic.robot.feishu.service.FeiShuNotifyRobot;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Paths;
@@ -19,7 +20,7 @@ import java.util.stream.IntStream;
  * <a href="https://cv2.pw/">网站签到入口</a>
  */
 @Slf4j
-public class Main {
+public class CheapV2rayMain {
     private static final String LOGIN_URL = "https://cv2.pw/auth/login";
 
     private static final List<String> USER_INFO = List.of(
@@ -31,27 +32,35 @@ public class Main {
 
     public static void main(String[] args) {
         log.info("signing at: " + DateUtil.now());
-        if (ObjectUtil.isEmpty(args) || args.length != 2) {
+        if (ObjectUtil.isEmpty(args) || args.length != 3) {
             log.warn("params could not empty, params:" + Arrays.toString(args));
             return;
         }
         var email = args[0];
         var password = args[1];
 
+        var feishuHookUrl = args[3];
+
         if (!Validator.isEmail(email)) {
             log.warn("email invalid :" + email);
             return;
         }
+
+        if (!Validator.isUrl(feishuHookUrl)) {
+            log.warn("webhook url invalid :" + feishuHookUrl);
+            return;
+        }
         log.info("email: " + email + "---" + "password: " + password);
 
-        var main = new Main();
-        main.sign(email, password);
+        var feishuNotifyRobot = new FeiShuNotifyRobot(feishuHookUrl);
+        var main = new CheapV2rayMain();
+        main.sign(email, password, feishuNotifyRobot);
     }
 
 
-    void sign(String email, String password) {
+    private void sign(String email, String password, FeiShuNotifyRobot feishuNotifyRobot) {
         try (
-                Playwright playwright = Playwright.create();
+                Playwright playwright = Playwright.create()
         ) {
             var launchOptions = new BrowserType.LaunchPersistentContextOptions();
 
@@ -63,7 +72,7 @@ public class Main {
 
             try (
                     var browserContext = playwright.chromium().launchPersistentContext(userDataDir, launchOptions);
-                    var page = browserContext.newPage();
+                    var page = browserContext.newPage()
             ) {
 
                 page.navigate(LOGIN_URL);
@@ -96,7 +105,9 @@ public class Main {
                 log.info("current sign state: " + signStateText);
 
                 if (signStateText.equals("明日再来")) {
-                    log.info(DateUtil.now() + "you has signed");
+                    var text = DateUtil.now() + "you has signed";
+                    log.info(text);
+                    feishuNotifyRobot.send(text);
                     return;
                 }
                 var signBtnSelector = page.waitForSelector("#checkin-div");
@@ -113,8 +124,9 @@ public class Main {
                                 log.info(formatStr);
                             });
                 }
-
-                log.info("sign success");
+                var text = "sign success";
+                log.info(text);
+                feishuNotifyRobot.send(text);
             } catch (Exception e) {
                 log.error(e.getMessage());
             } finally {
