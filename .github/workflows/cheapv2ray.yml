@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Set Timezone
         run: |
-          sudo timedatectl set-timezone Asia/Shanghai
+          sudo timedatectl set-timezone ${TZ}
 
 
       - uses: actions/checkout@v2
