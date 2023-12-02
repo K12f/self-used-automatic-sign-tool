@@ -30,7 +30,7 @@ public class Main {
     );
 
     public static void main(String[] args) {
-        log.info(DateUtil.now() + "signing");
+        log.info("signing at: " + DateUtil.now());
         if (ObjectUtil.isEmpty(args) || args.length != 2) {
             log.warn("params could not empty, params:" + Arrays.toString(args));
             return;
