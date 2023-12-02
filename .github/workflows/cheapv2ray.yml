@@ -17,12 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Set Timezone
         run: |
-          sudo mkdir -p /usr/share/zoneinfo/Asia
-          sudo cp /tmp/Asia/Shanghai /usr/share/zoneinfo/Asia/
-          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          sudo timedatectl set-timezone Asia/Shanghai
+
 
       - uses: actions/checkout@v2
       - name: Set up JDK 21
@@ -36,6 +34,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+
       - name: Build with Maven
         env:
           CHEAPV2RAY_EMAIL: ${{ secrets.CHEAPV2RAY_EMAIL }}
