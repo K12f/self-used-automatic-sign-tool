@@ -8,12 +8,22 @@ on:
   schedule:
     - cron: '30 19 * * *'
 
+env:
+  TZ: Asia/Shanghai
+
 jobs:
   CheapV2raySign:
 
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Set Timezone
+        run: |
+          sudo mkdir -p /usr/share/zoneinfo/Asia
+          sudo cp /tmp/Asia/Shanghai /usr/share/zoneinfo/Asia/
+          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
       - uses: actions/checkout@v2
       - name: Set up JDK 21
         uses: actions/setup-java@v1
@@ -32,5 +42,4 @@ jobs:
           CHEAPV2RAY_PASSWORD: ${{ secrets.CHEAPV2RAY_PASSWORD }}
           FEISHU_HOOK_URL: ${{ secrets.FEISHU_HOOK_URL }}
         run: |
-          chmod +x ./mvnw
-          ./mvnw --settings ./settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.CheapV2rayMain" -Dexec.args="${CHEAPV2RAY_EMAIL} ${CHEAPV2RAY_PASSWORD} ${FEISHU_HOOK_URL}"
+          sudo ./mvnw --settings ./settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.CheapV2rayMain" -Dexec.args="${CHEAPV2RAY_EMAIL} ${CHEAPV2RAY_PASSWORD} ${FEISHU_HOOK_URL}"
