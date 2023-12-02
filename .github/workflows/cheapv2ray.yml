@@ -33,4 +33,4 @@ jobs:
         run: |
           cd ./automatic-sign-tools
           chmod +x ./mvnw
-          ./mvnw --settings settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.Main" -Dexec.args="${EMAIL} ${PASSWORD}"
+          ./mvnw --settings ../settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.Main" -Dexec.args="${EMAIL} ${PASSWORD}"
