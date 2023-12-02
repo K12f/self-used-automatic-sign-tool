@@ -39,7 +39,7 @@ public class CheapV2rayMain {
         var email = args[0];
         var password = args[1];
 
-        var feishuHookUrl = args[3];
+        var feishuHookUrl = args[2];
 
         if (!Validator.isEmail(email)) {
             log.warn("email invalid :" + email);
