@@ -64,7 +64,7 @@ public class CheapV2rayMain {
         ) {
             var launchOptions = new BrowserType.LaunchPersistentContextOptions();
 
-            launchOptions.setHeadless(false);
+            launchOptions.setHeadless(true);
             launchOptions.setAcceptDownloads(true);
             //
             var uuid = IdUtil.simpleUUID();
