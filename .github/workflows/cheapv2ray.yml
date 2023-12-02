@@ -28,9 +28,9 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Build with Maven
         env:
-          EMAIL: ${{ secrets.EMAIL }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          EMAIL: ${{ secrets.CHEAPV2RAY_EMAIL }}
+          PASSWORD: ${{ secrets.CHEAPV2RAY_PASSWORD }}
         run: |
           cd ./automatic-sign-tools
           chmod +x ./mvnw
-          ./mvnw --settings settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.Main" -Dexec.args="${CHEAPV2RAY_EMAIL} ${CHEAPV2RAY_PASSWORD}"
+          ./mvnw --settings settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.Main" -Dexec.args="${EMAIL} ${PASSWORD}"
