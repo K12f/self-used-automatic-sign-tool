@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
 
 /**
@@ -117,16 +118,16 @@ public class CheapV2rayMain {
                 var rowSelector = page.waitForSelector(".row");
                 var userRecords = rowSelector.querySelectorAll(".card-body");
 
+                StringBuilder formatStr = new StringBuilder();
                 if (userRecords.size() == 4) {
-                    IntStream.range(0, USER_INFO.size())
-                            .forEach(i -> {
-                                var formatStr = String.format(USER_INFO.get(i), userRecords.get(i));
-                                log.info(formatStr);
-                            });
+                    for (int i = 0; i < USER_INFO.size(); i++) {
+                        formatStr.append(String.format(USER_INFO.get(i), userRecords.get(i)));
+                        log.info(formatStr.toString());
+                    }
                 }
                 var text = "sign success";
                 log.info(text);
-                feishuNotifyRobot.send(text);
+                feishuNotifyRobot.send(text + formatStr);
             } catch (Exception e) {
                 log.error(e.getMessage());
             } finally {
