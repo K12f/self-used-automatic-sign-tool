@@ -25,10 +25,10 @@ public class CheapV2rayMain {
     private static final String LOGIN_URL = "https://cv2.pw/auth/login";
 
     private static final List<String> USER_INFO = List.of(
-            "会员时长%s: ",
-            "剩余流量%s: ",
-            "在线设备数%s: ",
-            "钱包余额%s: "
+            "会员时长: %s",
+            "剩余流量: %s",
+            "在线设备数: %s",
+            "钱包余额: %s"
     );
 
     public static void main(String[] args) {
