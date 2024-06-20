@@ -6,3 +6,4 @@
   - CHEAPV2RAY_PASSWORD: 密码
   - FEISHU_HOOK_URL: 飞书webhook
 ![img.png](github-action-setting.png)
+
