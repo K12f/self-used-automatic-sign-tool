@@ -20,7 +20,8 @@ import java.util.List;
  */
 @Slf4j
 public class CheapV2rayMain {
-    private static final String LOGIN_URL = "https://cv2.pw/auth/login";
+    private static final String LOGIN_URL = "https://cv2.best/auth/login";
+    private static final String USER_URL = "https://cv2.best/user";
 
     private static final List<String> USER_INFO = List.of(
             "会员时长: %s",
@@ -63,7 +64,7 @@ public class CheapV2rayMain {
         ) {
             var launchOptions = new BrowserType.LaunchPersistentContextOptions();
 
-            launchOptions.setHeadless(true);
+            launchOptions.setHeadless(false);
             launchOptions.setAcceptDownloads(true);
             //
             var uuid = IdUtil.simpleUUID();
@@ -75,6 +76,7 @@ public class CheapV2rayMain {
             ) {
 
                 page.navigate(LOGIN_URL);
+                page.waitForURL(LOGIN_URL);
 
                 var emailSelector = page.waitForSelector("#email");
                 var passwordSelector = page.waitForSelector("#password");
@@ -86,7 +88,8 @@ public class CheapV2rayMain {
                 btnSelector.click();
 
                 log.info("thread sleep wait init cookie");
-                Thread.sleep(3000);
+
+                page.waitForURL(USER_URL);
 
                 log.info("init end");
                 var cookies = browserContext.cookies();
