@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * <a href="https://cv2.pw/">网站签到入口</a>
+ * 网站签到入口
  */
 @Slf4j
 public class CheapV2rayMain {
@@ -64,7 +64,7 @@ public class CheapV2rayMain {
         ) {
             var launchOptions = new BrowserType.LaunchPersistentContextOptions();
 
-            launchOptions.setHeadless(false);
+            launchOptions.setHeadless(true);
             launchOptions.setAcceptDownloads(true);
             //
             var uuid = IdUtil.simpleUUID();
