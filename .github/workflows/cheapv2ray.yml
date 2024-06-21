@@ -41,5 +41,6 @@ jobs:
           CHEAPV2RAY_PASSWORD: ${{ secrets.CHEAPV2RAY_PASSWORD }}
           FEISHU_HOOK_URL: ${{ secrets.FEISHU_HOOK_URL }}
         run: |
+          npx playwright install --with-deps chromium
           chmod +x ./mvnw
           ./mvnw --settings ./settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.CheapV2rayMain" -Dexec.args="${CHEAPV2RAY_EMAIL} ${CHEAPV2RAY_PASSWORD} ${FEISHU_HOOK_URL}"
