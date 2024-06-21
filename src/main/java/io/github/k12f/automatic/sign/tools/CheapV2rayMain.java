@@ -90,7 +90,9 @@ public class CheapV2rayMain {
 
                 log.info("thread sleep wait init cookie");
 
-                page.waitForURL(USER_URL);
+                var waitForUrlOptions = new Page.WaitForURLOptions();
+                waitForUrlOptions.setTimeout(10000);
+                page.waitForURL(USER_URL, waitForUrlOptions);
 
                 log.info("init end");
                 var cookies = browserContext.cookies();
