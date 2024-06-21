@@ -20,8 +20,8 @@ import java.util.List;
  */
 @Slf4j
 public class CheapV2rayMain {
-    private static final String LOGIN_URL = "https://cv2.best/auth/login";
-    private static final String USER_URL = "https://cv2.best/user";
+    private static final String LOGIN_URL = "https://cv2.store/auth/login";
+    private static final String USER_URL = "https://cv2.store/user";
 
     private static final List<String> USER_INFO = List.of(
             "会员时长: %s",
@@ -40,6 +40,7 @@ public class CheapV2rayMain {
         var password = args[1];
 
         var feishuHookUrl = args[2];
+
 
         if (!Validator.isEmail(email)) {
             log.warn("email invalid :" + email);
@@ -114,7 +115,6 @@ public class CheapV2rayMain {
                 }
                 var signBtnSelector = page.waitForSelector("#checkin-div");
                 signBtnSelector.click();
-                Thread.sleep(2000);
                 // 获取当前 用户数据
                 var rowSelector = page.waitForSelector(".row");
                 var userRecords = rowSelector.querySelectorAll(".card-body");

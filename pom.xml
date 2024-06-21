@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!--dependencies version-->
-        <playwright.version>1.43.0</playwright.version>
+        <playwright.version>1.44.0</playwright.version>
         <hutool.version>5.8.23</hutool.version>
         <okhttp3.version>5.0.0-alpha.11</okhttp3.version>
         <fastjson.version>2.0.31</fastjson.version>
