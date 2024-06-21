@@ -20,8 +20,8 @@ import java.util.List;
  */
 @Slf4j
 public class CheapV2rayMain {
-    private static final String LOGIN_URL = "https://cv2.store/auth/login";
-    private static final String USER_URL = "https://cv2.store/user";
+    private static final String LOGIN_URL = "https://cv2.best/auth/login";
+    private static final String USER_URL = "https://cv2.best/user";
 
     private static final List<String> USER_INFO = List.of(
             "会员时长: %s",
