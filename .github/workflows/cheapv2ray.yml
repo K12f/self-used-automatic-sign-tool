@@ -28,12 +28,10 @@ jobs:
         with:
           java-version: 21
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20.15.0
-
-      - name: Setup Playwright
-        run: npx playwright install-deps chromium
+      - script: npm ci
+        displayName: 'npm ci'
+      - script: npx playwright install --with-deps
+        displayName: 'Install Playwright browsers'
 
       - name: Cache local Maven repository
         uses: actions/cache@v2
