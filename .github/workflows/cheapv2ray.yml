@@ -32,6 +32,9 @@ jobs:
         with:
           node-version: 20.15.0
 
+      - name: Setup Playwright
+        run: npx playwright install-deps chromium
+
       - name: Cache local Maven repository
         uses: actions/cache@v2
         with:
@@ -46,6 +49,5 @@ jobs:
           CHEAPV2RAY_PASSWORD: ${{ secrets.CHEAPV2RAY_PASSWORD }}
           FEISHU_HOOK_URL: ${{ secrets.FEISHU_HOOK_URL }}
         run: |
-          npx playwright@1.44.0 install-deps
           chmod +x ./mvnw
           ./mvnw --settings ./settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.CheapV2rayMain" -Dexec.args="${CHEAPV2RAY_EMAIL} ${CHEAPV2RAY_PASSWORD} ${FEISHU_HOOK_URL}"
