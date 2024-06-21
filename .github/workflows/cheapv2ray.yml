@@ -24,10 +24,12 @@ jobs:
 
       - uses: actions/checkout@v2
       - name: Set up JDK 21
-      - uses: actions/setup-java@v1
-      - uses: actions/setup-node@v4
+        uses: actions/setup-java@v1
         with:
           java-version: 21
+
+      - uses: actions/setup-node@v4
+        with:
           node-version: 18
 
       - name: Cache local Maven repository
@@ -44,6 +46,6 @@ jobs:
           CHEAPV2RAY_PASSWORD: ${{ secrets.CHEAPV2RAY_PASSWORD }}
           FEISHU_HOOK_URL: ${{ secrets.FEISHU_HOOK_URL }}
         run: |
-          npx playwright install-deps
+          npx playwright@1.44.0 install-deps
           chmod +x ./mvnw
           ./mvnw --settings ./settings.xml compile exec:java -Dexec.mainClass="io.github.k12f.automatic.sign.tools.CheapV2rayMain" -Dexec.args="${CHEAPV2RAY_EMAIL} ${CHEAPV2RAY_PASSWORD} ${FEISHU_HOOK_URL}"
