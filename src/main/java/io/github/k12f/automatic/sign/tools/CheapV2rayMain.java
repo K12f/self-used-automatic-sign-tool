@@ -4,7 +4,6 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
@@ -12,7 +11,6 @@ import io.github.k12f.automatic.robot.feishu.service.FeiShuNotifyRobot;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,8 +18,8 @@ import java.util.List;
  */
 @Slf4j
 public class CheapV2rayMain {
-    private static final String LOGIN_URL = "https://cv2.best/auth/login";
-    private static final String USER_URL = "https://cv2.best/user";
+    private static final String LOGIN_URL = "https://cv2.store/auth/login";
+    private static final String USER_URL = "https://cv2.store/user";
 
     private static final List<String> USER_INFO = List.of(
             "会员时长: %s",
@@ -32,15 +30,18 @@ public class CheapV2rayMain {
 
     public static void main(String[] args) {
         log.info("signing at: " + DateUtil.now());
-        if (ObjectUtil.isEmpty(args) || args.length != 3) {
-            log.warn("params could not empty, params:" + Arrays.toString(args));
-            return;
-        }
-        var email = args[0];
-        var password = args[1];
+        log.info("signing at: " + DateUtil.now());
+//        if (ObjectUtil.isEmpty(args) || args.length != 3) {
+//            log.warn("params could not empty, params:" + Arrays.toString(args));
+//            return;
+//        }
+        var email = "k.o6g@gmail.com";
+//        var email = args[0];
+//        var password = args[1];
+        var password = "rZ8kmJM57vnUbgR";
 
-        var feishuHookUrl = args[2];
-
+//        var feishuHookUrl = args[2];
+        var feishuHookUrl = "https://open.feishu.cn/open-apis/bot/v2/hook/e1c38341-fedb-4dd6-8020-703d4379db90";
 
         if (!Validator.isEmail(email)) {
             log.warn("email invalid :" + email);
@@ -90,9 +91,7 @@ public class CheapV2rayMain {
 
                 log.info("thread sleep wait init cookie");
 
-                var waitForUrlOptions = new Page.WaitForURLOptions();
-                waitForUrlOptions.setTimeout(10000);
-                page.waitForURL(USER_URL, waitForUrlOptions);
+                page.waitForURL(USER_URL);
 
                 log.info("init end");
                 var cookies = browserContext.cookies();
