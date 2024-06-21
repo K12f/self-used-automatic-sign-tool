@@ -36,6 +36,9 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with Maven
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
         env:
           CHEAPV2RAY_EMAIL: ${{ secrets.CHEAPV2RAY_EMAIL }}
           CHEAPV2RAY_PASSWORD: ${{ secrets.CHEAPV2RAY_PASSWORD }}
